@@ -99,6 +99,7 @@ public class HTMLFilter implements ContentDataFilter, CharsetExtractor {
 			r = new BufferedReader(new InputStreamReader(strm, parseCharset), 4096);
 		} catch (UnsupportedEncodingException e) {
 			strm.close();
+			w.close();
 			throw e;
 		}
 		HTMLParseContext pc = new HTMLParseContext(r, w, null, new NullFilterCallback(), true);
