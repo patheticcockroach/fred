@@ -748,16 +748,9 @@ final class FCPPluginConnectionImpl implements FCPPluginConnection {
                 FCPPluginMessage reply = null;
                 
                 try {
-                    try {
-                        reply = messageHandler.handlePluginFCPMessage(
-                            getDefaultSendDirectionAdapter(direction.invert()), message);
-                    } catch(Error e) {
-                        // TODO: Code quality: This is a workaround for Java 6 not having
-                        // "catch(RuntimeException | Error e)". Once we are on Java 7, remove this
-                        // catch() block, and catch both types with the catch() block below.
-                        throw new RuntimeException(e);
-                    }
-                } catch(RuntimeException e) {
+                    reply = messageHandler.handlePluginFCPMessage(
+                        getDefaultSendDirectionAdapter(direction.invert()), message);
+                } catch(RuntimeException | Error e) {
                     // The message handler is a server or client implementation, and thus as third
                     // party code might have bugs. So we need to catch any undeclared throwables.
                     // Notice that this is not normal mode of operation: Instead of throwing,
